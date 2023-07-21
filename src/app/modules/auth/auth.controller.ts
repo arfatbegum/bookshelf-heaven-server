@@ -62,8 +62,26 @@ const refreshToken = catchAsync(async (req: Request, res: Response) => {
   });
 });
 
+const logoutUser = catchAsync(async (req: Request, res: Response) => {
+  // Clear the refresh token from the client-side (cookies)
+  const cookieOptions = {
+    secure: config.env === "production",
+    httpOnly: true,
+    expires: new Date(0),
+  };
+
+  res.cookie("refreshToken", "", cookieOptions);
+
+  sendResponse(res, {
+    statusCode: 200,
+    success: true,
+    message: "User logged out successfully!",
+  });
+});
+
 export const AuthController = {
   createUser,
   loginUser,
   refreshToken,
+  logoutUser,
 };
