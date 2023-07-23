@@ -3,11 +3,11 @@ import { Model, ObjectId } from "mongoose";
 export type UserName = {
   firstName: string;
   lastName: string;
-  middleName: string;
 };
 
 export type IUser = {
   _id: ObjectId;
+  name: UserName;
   password: string;
   email: string;
   wishlist: string[];

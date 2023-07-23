@@ -2,13 +2,10 @@ import { Request, Response } from "express";
 import config from "../../../config";
 import catchAsync from "../../../shared/catchAsync";
 import sendResponse from "../../../shared/sendResponse";
-import {
-  ILoginUserResponse,
-  IRefreshTokenResponse,
-  IUser,
-} from "./auth.interface";
+import { ILoginUserResponse, IRefreshTokenResponse } from "./auth.interface";
 import { AuthService } from "./auth.service";
 import httpStatus from "http-status";
+import { IUser } from "../user/user.interface";
 
 const createUser = catchAsync(async (req: Request, res: Response) => {
   const { ...userData } = req.body;
