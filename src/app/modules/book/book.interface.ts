@@ -1,7 +1,7 @@
 import { Model, ObjectId } from "mongoose";
-import { IUser } from "../auth/auth.interface";
 
 export type IBook = {
+  _id: string;
   title: string;
   author: string;
   image: string;

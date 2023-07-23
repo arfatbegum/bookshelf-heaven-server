@@ -3,12 +3,9 @@ import { Secret } from "jsonwebtoken";
 import config from "../../../config";
 import ApiError from "../../../errors/ApiError";
 import { jwtHelpers } from "../../../helpers/jwtHelpers";
-import {
-  ILoginUserResponse,
-  IRefreshTokenResponse,
-  IUser,
-} from "./auth.interface";
-import { User } from "./auth.model";
+import { ILoginUserResponse, IRefreshTokenResponse } from "./auth.interface";
+import { IUser } from "../user/user.interface";
+import { User } from "../user/user.model";
 
 const createUser = async (payload: IUser): Promise<IUser | null> => {
   const result = await User.create(payload);
