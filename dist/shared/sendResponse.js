@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const sendReponse = (res, data) => {
+const sendResponse = (res, data) => {
     const responseData = {
         success: data.success,
         statusCode: data.statusCode,
@@ -10,4 +10,4 @@ const sendReponse = (res, data) => {
     };
     res.status(data.statusCode).json(responseData);
 };
-exports.default = sendReponse;
+exports.default = sendResponse;
