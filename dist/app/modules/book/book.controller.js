@@ -108,8 +108,8 @@ const addReview = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void
     });
 }));
 const getReview = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const reviewBookId = req.params.reviewBookId;
-    const result = yield book_service_1.BookService.getReview(reviewBookId);
+    const { id } = req.params;
+    const result = yield book_service_1.BookService.getReview(id);
     (0, sendResponse_1.default)(res, {
         statusCode: http_status_1.default.OK,
         success: true,

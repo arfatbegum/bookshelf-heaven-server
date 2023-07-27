@@ -72,21 +72,21 @@ const deleteBook = (id, email) => __awaiter(void 0, void 0, void 0, function* ()
     return result;
 });
 const addReview = (id, user, reviewData) => __awaiter(void 0, void 0, void 0, function* () {
-    const book = yield book_model_1.Book.findOne({ id });
+    const book = yield book_model_1.Book.findOne({ _id: id });
     if (!book) {
         throw new Error("No book found!");
     }
     const review = typeof reviewData === "string" ? reviewData : reviewData.review;
     const newReview = {
         review: review,
-        reviewer: user._id,
+        reviewer: user.userId,
     };
     book.reviews.push(newReview);
     const updatedBook = yield book.save();
     return updatedBook;
 });
 const getReview = (id) => __awaiter(void 0, void 0, void 0, function* () {
-    const book = yield book_model_1.Book.findOne({ id }).populate("reviews.reviewer");
+    const book = yield book_model_1.Book.findOne({ _id: id }).populate("reviews.reviewer");
     if (!book) {
         return null;
     }
@@ -97,6 +97,7 @@ const getReview = (id) => __awaiter(void 0, void 0, void 0, function* () {
         review: review.review,
         reviewer: review.reviewer ? { name: review.reviewer.name } : null,
     }));
+    console.log(reviewsWithReviewerName);
     return reviewsWithReviewerName;
 });
 exports.BookService = {

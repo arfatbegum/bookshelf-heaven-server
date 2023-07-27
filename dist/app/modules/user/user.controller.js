@@ -57,16 +57,17 @@ const deleteAUser = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, vo
         data: result,
     });
 }));
-const getUserProfile = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const user = req.user;
-    if (!user) {
-        return;
-    }
-    const result = yield user_service_1.UserService.getUserProfile(user);
+const getMyProfile = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    var _a, _b;
+    const userId = (_a = req.user) === null || _a === void 0 ? void 0 : _a.userId;
+    const email = (_b = req.user) === null || _b === void 0 ? void 0 : _b.email;
+    console.log(userId);
+    const result = yield user_service_1.UserService.getMyProfile(userId, email);
+    console.log(result);
     (0, sendResponse_1.default)(res, {
-        statusCode: http_status_1.default.OK,
         success: true,
-        message: "User's information retrieved successfully",
+        statusCode: http_status_1.default.OK,
+        message: "My Profile retrieved successfully",
         data: result,
     });
 }));
@@ -183,7 +184,7 @@ exports.UserController = {
     getSingleUser,
     updateUser,
     deleteAUser,
-    getUserProfile,
+    getMyProfile,
     addToWishlist,
     getWishlist,
     removeFromWishlist,

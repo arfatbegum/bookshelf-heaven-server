@@ -29,10 +29,9 @@ const deleteAUser = (id) => __awaiter(void 0, void 0, void 0, function* () {
     const result = yield user_model_1.User.findOneAndDelete({ _id: id });
     return result;
 });
-const getUserProfile = (user) => __awaiter(void 0, void 0, void 0, function* () {
-    const { _id } = user;
-    const userInfo = yield user_model_1.User.findById(_id).exec();
-    return userInfo;
+const getMyProfile = (userId, email) => __awaiter(void 0, void 0, void 0, function* () {
+    const result = yield user_model_1.User.findById({ _id: userId, authorEmail: email });
+    return result;
 });
 const addToWishlist = (id, user) => __awaiter(void 0, void 0, void 0, function* () {
     const { userId } = user;
@@ -123,11 +122,11 @@ const getFinishedReading = (user) => __awaiter(void 0, void 0, void 0, function*
     }
     return userInfo.finishedReading;
 });
-const removeFromFinishedReading = (user, removeFBookId) => __awaiter(void 0, void 0, void 0, function* () {
+const removeFromFinishedReading = (user, id) => __awaiter(void 0, void 0, void 0, function* () {
     yield user_model_1.User.findOneAndUpdate({
         _id: user.userId,
     }, {
-        $pull: { finishedBooks: removeFBookId },
+        $pull: { finishedReading: id },
     }, {
         new: true,
     });
@@ -137,7 +136,7 @@ exports.UserService = {
     getSingleUser,
     updateUser,
     deleteAUser,
-    getUserProfile,
+    getMyProfile,
     addToWishlist,
     getWishlist,
     removeFromWishlist,
