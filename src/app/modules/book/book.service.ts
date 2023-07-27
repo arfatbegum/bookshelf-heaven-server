@@ -84,7 +84,7 @@ const addReview = async (
   user: JwtPayload,
   reviewData: string | { review: string }
 ): Promise<IBook> => {
-  const book = await Book.findOne({ id });
+  const book = await Book.findOne({ _id: id });
 
   if (!book) {
     throw new Error("No book found!");
@@ -95,9 +95,8 @@ const addReview = async (
 
   const newReview: IReview = {
     review: review,
-    reviewer: user._id,
+    reviewer: user.userId,
   };
-
   book.reviews!.push(newReview);
 
   const updatedBook = await book.save();
@@ -105,7 +104,7 @@ const addReview = async (
 };
 
 const getReview = async (id: string): Promise<IReview[] | null> => {
-  const book = await Book.findOne({ id }).populate("reviews.reviewer");
+  const book = await Book.findOne({ _id: id }).populate("reviews.reviewer");
 
   if (!book) {
     return null;
@@ -121,7 +120,7 @@ const getReview = async (id: string): Promise<IReview[] | null> => {
       reviewer: review.reviewer ? { name: review.reviewer.name } : null,
     })
   );
-
+  console.log(reviewsWithReviewerName);
   return reviewsWithReviewerName;
 };
 

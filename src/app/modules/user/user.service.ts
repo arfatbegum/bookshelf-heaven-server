@@ -28,11 +28,12 @@ const deleteAUser = async (id: string): Promise<IUser | null> => {
   return result;
 };
 
-const getUserProfile = async (user: JwtPayload): Promise<IUser | null> => {
-  const { _id } = user;
-  const userInfo = await User.findById(_id).exec();
-
-  return userInfo;
+const getMyProfile = async (
+  userId: string,
+  email: string
+): Promise<IUser | null> => {
+  const result = await User.findById({ _id: userId, authorEmail: email });
+  return result;
 };
 
 const addToWishlist = async (id: string, user: JwtPayload): Promise<void> => {
@@ -181,14 +182,14 @@ const getFinishedReading = async (user: JwtPayload): Promise<string[]> => {
 
 const removeFromFinishedReading = async (
   user: JwtPayload,
-  removeFBookId: string
+  id: string
 ): Promise<void> => {
   await User.findOneAndUpdate(
     {
       _id: user.userId,
     },
     {
-      $pull: { finishedBooks: removeFBookId },
+      $pull: { finishedReading: id },
     },
     {
       new: true,
@@ -201,7 +202,7 @@ export const UserService = {
   getSingleUser,
   updateUser,
   deleteAUser,
-  getUserProfile,
+  getMyProfile,
   addToWishlist,
   getWishlist,
   removeFromWishlist,

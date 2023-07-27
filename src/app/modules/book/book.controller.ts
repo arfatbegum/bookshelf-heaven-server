@@ -98,8 +98,8 @@ const addReview = catchAsync(async (req: Request, res: Response) => {
 });
 
 const getReview = catchAsync(async (req: Request, res: Response) => {
-  const reviewBookId = req.params.reviewBookId;
-  const result = await BookService.getReview(reviewBookId);
+  const { id } = req.params;
+  const result = await BookService.getReview(id);
 
   sendResponse<IReview[]>(res, {
     statusCode: httpStatus.OK,

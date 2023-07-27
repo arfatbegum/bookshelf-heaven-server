@@ -54,17 +54,16 @@ const deleteAUser = catchAsync(async (req: Request, res: Response) => {
   });
 });
 
-const getUserProfile = catchAsync(async (req: Request, res: Response) => {
-  const user = req.user;
-  if (!user) {
-    return;
-  }
-  const result = await UserService.getUserProfile(user);
-
+const getMyProfile = catchAsync(async (req: Request, res: Response) => {
+  const userId = req.user?.userId;
+  const email = req.user?.email;
+  console.log(userId);
+  const result = await UserService.getMyProfile(userId, email);
+  console.log(result);
   sendResponse<IUser>(res, {
-    statusCode: httpStatus.OK,
     success: true,
-    message: "User's information retrieved successfully",
+    statusCode: httpStatus.OK,
+    message: "My Profile retrieved successfully",
     data: result,
   });
 });
@@ -213,7 +212,7 @@ export const UserController = {
   getSingleUser,
   updateUser,
   deleteAUser,
-  getUserProfile,
+  getMyProfile,
   addToWishlist,
   getWishlist,
   removeFromWishlist,

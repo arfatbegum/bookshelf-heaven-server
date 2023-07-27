@@ -19,7 +19,7 @@ export type UserModel = Model<IUser> & {
   isUserExist(
     email: string
   ): Promise<Pick<IUser, "_id" | "email" | "password"> | null>;
-  isUserExistById(email: string): Promise<Pick<IUser, "_id" | "email"> | null>;
+  isUserExistById(userId: string): Promise<Pick<IUser, "_id" | "email"> | null>;
   isPasswordMatched(
     givenPassword: string,
     savedPassword: string

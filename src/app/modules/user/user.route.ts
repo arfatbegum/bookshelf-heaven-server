@@ -6,6 +6,8 @@ import auth from "../../middlewares/auth";
 
 const router = express.Router();
 
+router.get("/my-profile", auth(), UserController.getMyProfile);
+
 router.patch(
   "/:id",
   auth(),
@@ -34,14 +36,14 @@ router.post(
 );
 
 router.post(
-  "/removeFromFinishedBooks/:id",
+  "/removeFromFinishedReading/:id",
   auth(),
   UserController.removeFromFinishedReading
 );
 
 router.get("/wishlist", auth(), UserController.getWishlist);
 router.get("/readingList", auth(), UserController.getReadingList);
-router.get("/finishedBooks", auth(), UserController.getFinishedReading);
+router.get("/finishedReading", auth(), UserController.getFinishedReading);
 
 router.delete("/:id", auth(), UserController.deleteAUser);
 
